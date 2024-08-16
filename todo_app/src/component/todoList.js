@@ -1,0 +1,151 @@
+import React, { useState } from "react";
+import EditTodo from "./todoEdit";
+import CreateTodo from "./todoCreate";
+import {
+  Avatar,
+  Box,
+  Divider,
+  Grid,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+
+function TodoList() {
+  console.log("random numner", Math.random());
+  const [todos, setTodos] = useState([
+    { id: Math.random() + 1, task: "task 1", completed: false },
+    { id: Math.random() + 2, task: "task 2", completed: true },
+  ]);
+
+  const create = (newTodo) => {
+    console.log(newTodo);
+    setTodos([...todos, newTodo]);
+  };
+
+  const remove = (id) => {
+    console.log("id", id);
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const update = (id, updtedTask) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, task: updtedTask };
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+  };
+
+  const toggleComplete = (id) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, completed: !todo.completed };
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+  };
+
+  const todosList = todos.map((todo) => (
+    <EditTodo
+      toggleComplete={toggleComplete}
+      update={update}
+      remove={remove}
+      key={todo.id}
+      todo={todo}
+    />
+  ));
+
+  return (
+    <Box className="TodoList">
+      <Grid
+        container
+        sx={{
+          backgroundColor: "white",
+          height: "700px",
+          borderRadius: "20px",
+          margin: "auto",
+          padding: "5px",
+          boxShadow: "2px 1px 2px 2px white",
+        }}
+        rowSpacing={1}
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+      >
+        <Grid
+          item
+          xs={12}
+          md={4}
+          sx={{ backgroundColor: "white", borderRadius: "10px" }}
+        >
+          <List>
+            <ListItem alignItems="flex-start">
+              <ListItemAvatar>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+              </ListItemAvatar>
+              <ListItemText
+                primary="Brunch this weekend?"
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      Ali Connors
+                    </Typography>
+                    {""}
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </List>
+          <Box style={{ margin: "30px" }}>
+            <Typography display="flex">
+              <CalendarMonthIcon />
+              <h3 style={{ margin: "0px" }}>Today task</h3>
+            </Typography>
+            <Box sx={{ margin: "30px" }}>
+              <Typography>personal</Typography>
+              <Typography>Freelance</Typography>
+              <Typography>Work</Typography>
+              <Typography>Add task</Typography>
+            </Box>
+            <Typography>
+              <h3>schedule task</h3>
+            </Typography>
+            <Typography>
+              <h3>Setting</h3>
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={8}
+          sx={{
+            backgroundColor: "#a18aff",
+            borderRadius: "0px 10px 10px 0px",
+          }}
+        >
+          <h3>
+            <span>Today main focus</span>
+          </h3>
+          <h2>
+            <span>Designing team meeting</span>
+          </h2>
+          <CreateTodo createTodo={create} />
+          <ul>{todosList}</ul>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+
+export default TodoList;
