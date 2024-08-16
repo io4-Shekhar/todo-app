@@ -15,7 +15,7 @@ import {
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 function TodoList() {
-  console.log("random numner", Math.random());
+  console.log("random number", Math.random());
   const [todos, setTodos] = useState([
     { id: Math.random() + 1, task: "task 1", completed: false },
     { id: Math.random() + 2, task: "task 2", completed: true },
