@@ -20,6 +20,7 @@ function CreateTodo({ task, createTodo }) {
       task: userInput.task,
       completed: false,
     };
+
     createTodo(newTodo);
     setUserInput({ task: "" });
   };
@@ -28,20 +29,18 @@ function CreateTodo({ task, createTodo }) {
     <form className="NewTodoForm" onSubmit={handleSubmit}>
       <label htmlFor="task"></label>
       <TextField
-        id="outlined-basic"
+        type="text"
+        id="task"
+        name="task"
         label="What is your next task"
         variant="outlined"
-      />
-      {/* <input
         value={userInput.task}
         onChange={handleChange}
-        id="task"
-        type="text"
-        name="task"
-        placeholder="What is your next task"
-      /> */}
+      />
+
       <Button
         variant="contained"
+        type="submit"
         sx={{ height: "55px", marginLeft: "10px", textTransform: "capitalize" }}
       >
         Add todo

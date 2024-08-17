@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -30,23 +30,45 @@ function EditTodo({ todo, remove, update, toggleComplete }) {
     result = (
       <Box className="Todo">
         <form className="Todo-edit-form" onSubmit={handleUpdate}>
-          <input onChange={handleChange} value={task} type="text" />
+          <TextField
+            onChange={handleChange}
+            value={task}
+            type="text"
+            height="10px"
+            size="small"
+            sx={{
+              width: "260px",
+              marginTop: "10px",
+              border: "none",
+              borderRadius: "10px",
+              padding: "0px",
+              backgroundColor: "white",
+            }}
+          />
           <Button onClick={handleUpdate}>Save</Button>
         </form>
       </Box>
     );
   } else {
     result = (
-      <Box className="Todo">
+      <Box className="Todo" sx={{ display: "flex" }}>
         <li
+          style={{
+            padding: "5px",
+            width: "250px",
+            backgroundColor: "white",
+            marginTop: "10px",
+            borderRadius: "10px",
+            color: "black",
+          }}
           id={todo.id}
           onClick={toggleCompleted}
-          className={todo.completed ? "Todo-task completed" : "Todo-task"}
+          //   className={todo.completed ? "Todo-task completed" : "Todo-task"}
         >
           {todo.task}
         </li>
         <Box
-          sx={{ display: "flex", justifyContent: "center" }}
+          sx={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
           className="Todo-buttons"
         >
           <Button onClick={toggleFrom}>
